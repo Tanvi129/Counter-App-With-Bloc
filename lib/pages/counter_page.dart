@@ -10,12 +10,38 @@ class CounterPage extends StatelessWidget {
       body: BlocBuilder<CounterBloc, int>(
         
         builder: (context, count) {
-          return Center(
-            child: Text(
-              '$count',
-              style: TextStyle(fontSize: 24.0),
+           
+            if(count<0){
+              return Center(
+                child: Text(
+                
+                'Negative Vale $count',
+                style: TextStyle(fontSize: 24.0),
             ),
-          );
+              );
+            }else if(count%2==0){
+              return Center(
+              child: Text(
+                
+                'Even Number $count',
+                style: TextStyle(fontSize: 24.0),
+              ),
+            );
+
+            }
+            return Center(
+              child: Text(
+                
+                '$count',
+                style: TextStyle(fontSize: 24.0),
+              ),
+            );
+            // child: Text(
+              
+            //   '$count',
+            //   style: TextStyle(fontSize: 24.0),
+            // ),
+          
         },
       ),
       floatingActionButton: Column(
