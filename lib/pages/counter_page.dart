@@ -7,23 +7,23 @@ class CounterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Counter')),
-      body: BlocBuilder<CounterBloc, int>(
+      body: BlocBuilder<CounterBloc, CounterState>(
         
         builder: (context, count) {
            
-            if(count<0){
+            if(count.counterValue < 0){
               return Center(
                 child: Text(
                 
-                'Negative Vale $count',
+                'Negative Vale ${count.counterValue}',
                 style: TextStyle(fontSize: 24.0),
             ),
               );
-            }else if(count%2==0){
+            }else if(count.counterValue %2==0){
               return Center(
               child: Text(
                 
-                'Even Number $count',
+                'Even Number ${count.counterValue}',
                 style: TextStyle(fontSize: 24.0),
               ),
             );
@@ -32,7 +32,7 @@ class CounterPage extends StatelessWidget {
             return Center(
               child: Text(
                 
-                '$count',
+                '${count.counterValue}',
                 style: TextStyle(fontSize: 24.0),
               ),
             );
@@ -59,7 +59,7 @@ class CounterPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 5.0),
             child: FloatingActionButton(
               child: Icon(Icons.remove),
-              onPressed: () => context.read<CounterBloc>().add(CounterDecrementPressed()),
+              onPressed: () => BlocProvider.of<CounterBloc>(context).CounterDecrementPressed();,
             ),
           ),
         ],
