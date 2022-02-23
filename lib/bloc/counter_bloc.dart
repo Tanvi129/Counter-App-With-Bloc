@@ -3,17 +3,25 @@ import 'package:meta/meta.dart';
 
 part 'bloc_state.dart';
 
-
 abstract class CounterEvent {}
+
 class CounterIncrementPressed extends CounterEvent {}
+
 class CounterDecrementPressed extends CounterEvent {}
 
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
-  CounterBloc() : super(CounterState(counterValue: 0));
+  CounterBloc() : super(CounterState(counterValue: 0)) {
+    on<CounterIncrementPressed>((event, emit) => emit(CounterState(
+        counterValue: state.counterValue + 1, wasIncremented: true)));
 
-  void increment() => emit(
-      CounterState(counterValue: state.counterValue + 1, wasIncremented: true));
-
-  void decrement() => emit(CounterState(
-      counterValue: state.counterValue - 1, wasIncremented: false));
+    on<CounterDecrementPressed>((event, emit) => emit(CounterState(
+        counterValue: state.counterValue - 1, wasIncremented: false)));
+  }
 }
+
+// class CounterBloc extends Bloc<CounterEvent, int> {
+//   CounterBloc() : super(0) {
+//     on<CounterIncrementPressed>((event, emit) => emit(state + 1));
+//     on<CounterDecrementPressed>((event, emit) => emit(state - 1));
+//   }
+// }
