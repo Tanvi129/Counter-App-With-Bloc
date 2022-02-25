@@ -1,6 +1,4 @@
-import 'package:counter_app_bloc/pages/counter_page.dart';
-import 'package:counter_app_bloc/pages/second_screen.dart';
-import 'package:counter_app_bloc/pages/third_screen.dart';
+import 'package:counter_app_bloc/pages/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final CounterBloc _counterBloc = CounterBloc();
+  final AppRouter _appRouter = AppRouter();
 
   // This widget is the root of your application.
   @override
@@ -39,20 +37,8 @@ class _MyAppState extends State<MyApp> {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        routes: {
-          "/": (context) => BlocProvider.value(
-                value: _counterBloc,
-                child: CounterPage(),
-              ),
-          "/second": (context) => BlocProvider.value(
-                value: _counterBloc,
-                child: SecondScreen(),
-              ),
-          "/third": (context) => BlocProvider.value(
-                value: _counterBloc,
-                child: ThirdScreen(),
-              )
-        },
+        onGenerateRoute: _appRouter.onGenerateRoute,
+        
       ),
     );
   }
@@ -60,7 +46,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _counterBloc.close();
+    _appRouter.dispose();
     super.dispose();
   }
 }
