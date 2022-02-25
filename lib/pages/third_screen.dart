@@ -1,35 +1,35 @@
 import 'package:counter_app_bloc/bloc/counter_bloc.dart';
-import 'package:counter_app_bloc/pages/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-class CounterPage extends StatelessWidget {
-  const CounterPage({Key? key}) : super(key: key);
+class ThirdScreen extends StatelessWidget {
+  const ThirdScreen({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Counter')),
+      appBar: AppBar(title: const Text('Third Screen'),
+      backgroundColor: Colors.greenAccent,),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          
           BlocConsumer<CounterBloc, CounterState>(
             listener: (context, state) {
               if (state.wasIncremented == true) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Incremented!'),
-                    duration: Duration(milliseconds: 300),
-                  ),
-                );
-              } else if (state.wasIncremented == false) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Decremented!'),
-                    duration: Duration(milliseconds: 300),
-                  ),
-                );
-              }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Incremented!'),
+                          duration: Duration(milliseconds: 300),
+                        ),
+                      );
+                    } else if (state.wasIncremented == false) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Decremented!'),
+                          duration: Duration(milliseconds: 300),
+                        ),
+                      );
+                    }
             },
             builder: (context, count) {
               if (count.counterValue < 0) {
@@ -60,18 +60,7 @@ class CounterPage extends StatelessWidget {
               // ),
             },
           ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed("/second");
-                
-              },
-              child: Text("Second Screen")),
-              ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed("/third");
-                
-              },
-              child: Text("Third Screen")),
+          
         ],
       ),
       floatingActionButton: Column(
@@ -81,7 +70,7 @@ class CounterPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: FloatingActionButton(
-              heroTag: "but1",
+              heroTag:"but3",
               child: const Icon(Icons.add),
               onPressed: () =>
                   context.read<CounterBloc>().add(CounterIncrementPressed()),
@@ -90,7 +79,7 @@ class CounterPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: FloatingActionButton(
-              heroTag:"but2",
+              heroTag:"but4",
               child: const Icon(Icons.remove),
               onPressed: () =>
                   context.read<CounterBloc>().add(CounterDecrementPressed()),

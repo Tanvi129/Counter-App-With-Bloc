@@ -61,7 +61,7 @@ class SecondScreen extends StatelessWidget {
               // ),
             },
           ),
-          ElevatedButton(onPressed: (){}, child: Text("Second Screen")),
+          
         ],
       ),
       floatingActionButton: Column(

@@ -1,15 +1,24 @@
 import 'package:counter_app_bloc/pages/counter_page.dart';
+import 'package:counter_app_bloc/pages/second_screen.dart';
+import 'package:counter_app_bloc/pages/third_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/counter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final CounterBloc _counterBloc = CounterBloc();
 
   // This widget is the root of your application.
   @override
@@ -30,8 +39,28 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: CounterPage(),
+        routes: {
+          "/": (context) => BlocProvider.value(
+                value: _counterBloc,
+                child: CounterPage(),
+              ),
+          "/second": (context) => BlocProvider.value(
+                value: _counterBloc,
+                child: SecondScreen(),
+              ),
+          "/third": (context) => BlocProvider.value(
+                value: _counterBloc,
+                child: ThirdScreen(),
+              )
+        },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _counterBloc.close();
+    super.dispose();
   }
 }
